@@ -102,6 +102,40 @@
 
   /* ====== Small footer note ====== */
   .foot{margin:18px 0 4px; text-align:center; color:#7a7a7a; font-size:12px}
+
+/* --- Card先頭のトップ画像 --- */
+.card.has-hero { padding-top: 16px; } /* 角丸の自然さ用に明示 */
+
+.card-hero{
+  /* カードの内側パディング(16px)をまたいで画像を端まで広げる */
+  margin: -16px -16px 12px;
+  border-radius: var(--radius) var(--radius) 0 0;
+  overflow: hidden;
+  background: #0001;
+  border-bottom: 1px solid var(--line);
+}
+.card-hero figcaption{
+  font-size: 12px;
+  color: var(--muted);
+  padding: 6px 10px;
+  background: #fff;
+}
+
+/* アスペクト比ユーティリティ（お好みで 16:9 / 3:2 / 4:3 など） */
+.ratio-16x9 { position: relative; width: 100%; padding-top: 56.25%; }
+.ratio-3x2  { position: relative; width: 100%; padding-top: 66.6667%; }
+.ratio-4x3  { position: relative; width: 100%; padding-top: 75%; }
+
+.card-hero .ratio-16x9 > img,
+.card-hero .ratio-3x2  > img,
+.card-hero .ratio-4x3  > img{
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; /* 端末サイズに応じてトリミングしつつ美しく表示 */
+  display: block;
+}
+
+  
 </style>
 </head>
 <body>
@@ -114,12 +148,14 @@
 
     <!-- 概要（冒頭のご挨拶 + 重要情報） -->
     <section class="card">
-      <div class="gallery">
-        <figure>
-        　<img loading="lazy" src="image/set1.jpg" alt="プロポーズ会場">
-        　<figcaption>記念の一枚</figcaption>
-      　</figure>
-      </div>
+  <figure class="card-hero">
+    <div class="ratio-16x9">
+      <!-- ★画像パスを差し替え -->
+      <img loading="lazy" src="image/top-hero.jpg" alt="両家顔合わせのイメージ写真">
+    </div>
+    <!-- （任意）キャプション -->
+    <!-- <figcaption>会場イメージ：○○○</figcaption> -->
+  </figure>
       <p class="lead">本日は両家の親睦の場にお運びいただき、誠にありがとうございます。和やかなひと時となりますよう準備いたしました。</p>
       <dl class="meta" style="margin-top:8px">
         <dt>受付</dt><dd>11:45〜（席札をご確認ください）</dd>
