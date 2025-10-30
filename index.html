@@ -1,0 +1,344 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>両家顔合わせのご案内</title>
+<meta name="description" content="両家顔合わせのご案内ページ。日時・場所・当日の流れ・家族紹介・席次・装い・お料理・アレルギー・連絡先・動画・写真ギャラリー・出欠フォームなど。" />
+<style>
+  /* ========== Design Tokens ========== */
+  :root{
+    --ink:#1b1b1b;
+    --muted:#555;
+    --accent:#7b6d53;        /* 落ち着いた金茶 */
+    --paper:#f8f7f4;         /* 生成り */
+    --line:#d9d2c3;          /* 金縁風の罫線 */
+    --link:#6a5e47;
+    --shadow:0 8px 24px rgba(0,0,0,.06);
+    --radius:14px;
+    --max:900px;
+  }
+
+  /* ========== Base ========== */
+  html,body{height:100%}
+  body{
+    margin:0; color:var(--ink); background:var(--paper);
+    font:16px/1.9 "Hiragino Mincho ProN","Yu Mincho","游明朝","Noto Serif JP","MS PMincho",serif;
+    text-rendering:optimizeLegibility;
+  }
+  .container{max-width:var(--max); margin:auto; padding:24px 18px}
+  a{color:var(--link); text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:2px}
+  img{max-width:100%; display:block}
+  hr.rule{
+    border:0; height:1px; background:linear-gradient(to right, transparent, var(--line), transparent);
+    margin:32px 0;
+  }
+
+  /* ========== Ornaments ========== */
+  .card{
+    background:#fff; border:1px solid var(--line); border-radius:var(--radius);
+    box-shadow:var(--shadow); padding:28px; margin:22px 0;
+  }
+  .ornament{
+    display:flex; align-items:center; gap:14px; color:var(--accent);
+    letter-spacing:.2em; text-indent:.2em; justify-content:center; margin:12px 0 18px;
+  }
+  .ornament::before,.ornament::after{
+    content:""; flex:1; height:1px; background:linear-gradient(to right, transparent, var(--line));
+  }
+  .fleur{
+    width:24px; height:24px; display:inline-block; vertical-align:middle;
+    background:
+      radial-gradient(circle at 50% 0%, var(--accent) 0 6px, transparent 7px),
+      radial-gradient(circle at 100% 50%, var(--accent) 0 6px, transparent 7px),
+      radial-gradient(circle at 50% 100%, var(--accent) 0 6px, transparent 7px),
+      radial-gradient(circle at 0% 50%, var(--accent) 0 6px, transparent 7px);
+    mask:
+      radial-gradient(circle at 50% 50%, #000 0 7px, transparent 8px);
+  }
+
+  /* ========== Typography ========== */
+  h1,h2,h3{margin:0 0 .3em}
+  h1{
+    font-size:clamp(26px, 3.6vw, 40px);
+    text-align:center; letter-spacing:.18em; font-weight:600;
+  }
+  h2{
+    font-size:clamp(20px, 2.2vw, 26px);
+    border-bottom:1px solid var(--line); padding-bottom:.5em; margin-bottom:.8em;
+  }
+  h3{font-size:18px; color:#333}
+  .lead{
+    text-align:center; color:var(--muted); margin-top:8px; font-size:15px;
+  }
+  .kv{
+    background:
+      radial-gradient(1200px 500px at 50% -200px, rgba(123,109,83,.18), transparent 60%),
+      linear-gradient(#fff, #fff8);
+    border:1px solid var(--line); border-radius:20px; padding:38px 20px; box-shadow:var(--shadow);
+    margin:28px 0 18px;
+  }
+  .names{font-size:clamp(18px, 2vw, 20px); text-align:center; color:#333; letter-spacing:.12em}
+  .date-place{ text-align:center; color:var(--muted); margin-top:6px }
+
+  /* ========== Layout Helpers ========== */
+  .grid{display:grid; gap:18px}
+  .grid.cols-2{grid-template-columns:1fr}
+  @media(min-width:760px){ .grid.cols-2{grid-template-columns:1fr 1fr} }
+
+  dl.meta{display:grid; grid-template-columns:9em 1fr; row-gap:.6em; column-gap:1em; margin:0}
+  dl.meta dt{color:var(--muted)}
+  dl.meta dd{margin:0}
+
+  table.clean{width:100%; border-collapse:collapse; font-variant-numeric:tabular-nums}
+  table.clean th, table.clean td{border-bottom:1px solid #eee; padding:10px 6px; vertical-align:top}
+  table.clean th{color:#333; white-space:nowrap; width:9em; text-align:left; background:#faf9f6}
+
+  .note{font-size:14px; color:var(--muted)}
+
+  /* ========== Media & Gallery ========== */
+  .media-16x9{position:relative; width:100%; padding-top:56.25%; border:1px solid var(--line); border-radius:12px; overflow:hidden; background:#0002}
+  .media-16x9 iframe, .media-16x9 video{position:absolute; inset:0; width:100%; height:100%; border:0}
+
+  .gallery{display:grid; grid-template-columns:repeat(2,1fr); gap:10px}
+  @media(min-width:860px){ .gallery{grid-template-columns:repeat(4,1fr)} }
+  .gallery figure{margin:0; border:1px solid var(--line); border-radius:10px; overflow:hidden; background:#fff}
+  .gallery figcaption{font-size:12px; color:var(--muted); padding:6px 8px}
+
+  /* ========== RSVP (簡易) ========== */
+  form.rsvp{display:grid; gap:12px}
+  form.rsvp input, form.rsvp textarea, form.rsvp select{
+    width:100%; padding:10px 12px; border:1px solid var(--line); background:#fff;
+    border-radius:10px; font:inherit;
+  }
+  form.rsvp button{
+    appearance:none; border:1px solid var(--accent); background:linear-gradient(#fff, #f7f4ee);
+    padding:10px 16px; border-radius:999px; cursor:pointer; font:inherit; letter-spacing:.08em;
+  }
+  form.rsvp button:hover{filter:brightness(.98)}
+
+  /* ========== Print ========== */
+  @media print{
+    .kv, .card{box-shadow:none}
+    a{text-decoration:none; color:inherit}
+    .media-16x9{border:0; background:none}
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <!-- ====== Hero ====== -->
+    <section class="kv">
+      <div class="ornament"><span class="fleur" aria-hidden="true"></span> 両 家 顔 合 わ せ の ご 案 内 <span class="fleur" aria-hidden="true"></span></div>
+      <h1>前田家・田中家 顔合わせ</h1>
+      <p class="lead">日頃よりご厚情を賜り、心より御礼申し上げます。ささやかではございますが、両家の親睦を深める場として顔合わせの席を設けました。</p>
+      <p class="names">新郎　前田 拓真 ／ 新婦　田中 花子</p>
+      <p class="date-place">2026年4月12日（日） 正午より　於：○○○（東京・銀座）</p>
+    </section>
+
+    <!-- ====== 概要 ====== -->
+    <section class="card">
+      <h2>ご挨拶</h2>
+      <p>
+        本日はお忙しいなかお運びいただき、誠にありがとうございます。両家の良きご縁を結ぶ節目として、皆さまと和やかなひと時を過ごせますと幸いです。
+        どうぞよろしくお願い申し上げます。
+      </p>
+      <hr class="rule" />
+      <h3>当日のご案内（要点）</h3>
+      <dl class="meta">
+        <dt>日時</dt><dd>2026年4月12日（日） 12:00〜14:00（受付 11:45〜）</dd>
+        <dt>場所</dt><dd>○○○（個室）／ 東京都中央区銀座○-○-○ ○階</dd>
+        <dt>費用</dt><dd>新郎新婦側で用意しております（お気遣い無用にてお願い申し上げます）</dd>
+        <dt>連絡</dt><dd>当日連絡先：<a href="tel:090-0000-0000">090-0000-0000（前田）</a></dd>
+      </dl>
+    </section>
+
+    <!-- ====== 当日の流れ ====== -->
+    <section class="card">
+      <h2>当日の流れ</h2>
+      <table class="clean" aria-describedby="flow-note">
+        <tbody>
+          <tr><th>11:45</th><td>受付・着席（席札をご確認ください）</td></tr>
+          <tr><th>12:00</th><td>開会・ご挨拶（新郎より）</td></tr>
+          <tr><th>12:05</th><td>両家紹介（ご出席者のお名前・ご関係）</td></tr>
+          <tr><th>12:20</th><td>お食事（和会席）・歓談</td></tr>
+          <tr><th>13:30</th><td>今後の段取り共有（結納／婚約指輪／挙式時期のご相談 など）</td></tr>
+          <tr><th>13:55</th><td>締めのご挨拶（新婦父）</td></tr>
+          <tr><th>14:00</th><td>お開き</td></tr>
+        </tbody>
+      </table>
+      <p id="flow-note" class="note">※進行は目安です。体調や場の雰囲気に合わせて柔軟に進めます。</p>
+    </section>
+
+    <!-- ====== 会場案内 ====== -->
+    <section class="card">
+      <h2>会場案内・アクセス</h2>
+      <dl class="meta">
+        <dt>店名</dt><dd>○○○（個室「○○の間」）</dd>
+        <dt>住所</dt><dd>東京都中央区銀座○-○-○ ○階</dd>
+        <dt>最寄</dt><dd>銀座駅 ○番出口 徒歩○分 ／ JR有楽町駅 徒歩○分</dd>
+        <dt>地図</dt><dd><a href="#" aria-label="地図を開く">Googleマップで表示</a></dd>
+        <dt>連絡</dt><dd>03-0000-0000（店舗）</dd>
+      </dl>
+      <p class="note">※お車の場合は近隣コインパーキングをご利用ください。</p>
+    </section>
+
+    <!-- ====== 家族紹介 ====== -->
+    <section class="card">
+      <h2>家族紹介</h2>
+      <div class="grid cols-2">
+        <div>
+          <h3>新郎側</h3>
+          <table class="clean">
+            <tbody>
+              <tr><th>父</th><td>前田 ○○（△△勤務）</td></tr>
+              <tr><th>母</th><td>前田 ○○（□□出身）</td></tr>
+              <tr><th>本人</th><td>前田 拓真（株式会社ゼアー）</td></tr>
+              <tr><th>続柄</th><td>長男</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <h3>新婦側</h3>
+          <table class="clean">
+            <tbody>
+              <tr><th>父</th><td>田中 ○○（△△勤務）</td></tr>
+              <tr><th>母</th><td>田中 ○○（□□出身）</td></tr>
+              <tr><th>本人</th><td>田中 花子（□□□）</td></tr>
+              <tr><th>続柄</th><td>長女</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <p class="note">※お差し支えなければ趣味や近況を一言ずつご紹介ください。</p>
+    </section>
+
+    <!-- ====== 席次（簡易） ====== -->
+    <section class="card">
+      <h2>席次</h2>
+      <p class="note">※個室長テーブル想定の例です。実際の席札に合わせて更新ください。</p>
+      <div class="grid cols-2">
+        <div>
+          <h3>テーブル配置（上座 → 下座）</h3>
+          <table class="clean">
+            <tbody>
+              <tr><th>上座</th><td>新婦父 ｜ 新婦母 ｜ 新婦</td></tr>
+              <tr><th>中央</th><td>新郎 ｜ 新郎母 ｜ 新郎父</td></tr>
+              <tr><th>補助</th><td>店員導線側に着席なし</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div>
+          <h3>席札メモ</h3>
+          <ul>
+            <li>写真撮影の際は席を移動いただく場合があります。</li>
+            <li>ご持病・お身体の具合に合わせてお席を調整します。</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====== お料理・アレルギー ====== -->
+    <section class="card">
+      <h2>お料理・お飲み物</h2>
+      <table class="clean">
+        <tbody>
+          <tr><th>お料理</th><td>季節の会席（先付・椀・造里・焼物・煮物・食事・甘味）</td></tr>
+          <tr><th>お飲み物</th><td>ビール・日本酒・ワイン・ソフトドリンク 各種</td></tr>
+          <tr><th>アレルギー</th><td>甲殻／ナッツ／乳／小麦 等、事前にお知らせください</td></tr>
+        </tbody>
+      </table>
+      <details>
+        <summary>アレルギー連絡フォーム（簡易・端末メール起動）</summary>
+        <form class="rsvp" action="mailto:you@example.com" method="post" enctype="text/plain">
+          <input type="text" name="お名前" placeholder="お名前" required />
+          <textarea name="アレルギー" rows="3" placeholder="例：甲殻類・乳製品アレルギー など"></textarea>
+          <button type="submit">メールで送信</button>
+          <p class="note">※送信ボタンで端末のメールアプリが開きます。宛先は適宜差し替えてください。</p>
+        </form>
+      </details>
+    </section>
+
+    <!-- ====== 装い・持ち物 ====== -->
+    <section class="card">
+      <h2>装い・持ち物の目安</h2>
+      <ul>
+        <li>装い：セミフォーマル（ダークトーン推奨）</li>
+        <li>手土産：お気遣い無用です（お気持ちのみ頂戴いたします）</li>
+        <li>所要時間：2時間程度</li>
+      </ul>
+    </section>
+
+    <!-- ====== 動画（Googleドライブ埋め込み） ====== -->
+    <section class="card">
+      <h2>動画</h2>
+      <p class="note">
+        Googleドライブの動画は「<strong>リンクを知っている全員に閲覧許可</strong>」にし、URLの
+        <code>https://drive.google.com/file/d/<b>FILE_ID</b>/view</code>
+        の <b>FILE_ID</b> を下記 iframe の <code>.../file/d/<b>FILE_ID</b>/preview</code> に差し替えてください。
+      </p>
+      <div class="media-16x9">
+        <!-- ↓↓↓ ここで FILE_ID を差し替え ↓↓↓ -->
+        <iframe
+          src="https://drive.google.com/file/d/FILE_ID/preview"
+          allow="autoplay; fullscreen"
+          title="ご挨拶ムービー">
+        </iframe>
+      </div>
+    </section>
+
+    <!-- ====== 写真ギャラリー ====== -->
+    <section class="card">
+      <h2>写真ギャラリー</h2>
+      <div class="gallery">
+        <figure>
+          <img src="image/sample1.jpg" alt="二人の写真１（差し替え）">
+          <figcaption>思い出の場所にて</figcaption>
+        </figure>
+        <figure>
+          <img src="image/sample2.jpg" alt="二人の写真２（差し替え）">
+          <figcaption>季節の写真</figcaption>
+        </figure>
+        <figure>
+          <img src="image/sample3.jpg" alt="家族の写真（差し替え）">
+          <figcaption>ご家族の皆さまと</figcaption>
+        </figure>
+        <figure>
+          <img src="image/sample4.jpg" alt="記念写真（差し替え）">
+          <figcaption>記念の一枚</figcaption>
+        </figure>
+      </div>
+      <p class="note">※画像パスは任意のものに差し替えてください（高解像度でも自動で縮小表示されます）。</p>
+    </section>
+
+    <!-- ====== 出欠（簡易） ====== -->
+    <section class="card">
+      <h2>出欠のご連絡</h2>
+      <form class="rsvp" action="mailto:you@example.com" method="post" enctype="text/plain">
+        <input type="text" name="お名前" placeholder="お名前" required />
+        <select name="ご出欠" required>
+          <option value="">ご出欠をお選びください</option>
+          <option>出席</option>
+          <option>欠席</option>
+        </select>
+        <textarea name="連絡事項" rows="3" placeholder="到着時間・配慮事項などございましたらご記入ください"></textarea>
+        <button type="submit">メールで送信</button>
+        <p class="note">※Googleフォームに差し替える場合は、このブロックをフォームの埋め込みに入れ替えてください。</p>
+      </form>
+    </section>
+
+    <!-- ====== 連絡先 ====== -->
+    <section class="card">
+      <h2>連絡先</h2>
+      <dl class="meta">
+        <dt>新郎連絡先</dt><dd><a href="tel:090-0000-0000">090-0000-0000</a> ／ <a href="mailto:groom@example.com">groom@example.com</a></dd>
+        <dt>新婦連絡先</dt><dd><a href="tel:090-0000-0001">090-0000-0001</a> ／ <a href="mailto:bride@example.com">bride@example.com</a></dd>
+      </dl>
+    </section>
+
+    <p class="lead" style="margin:28px 0 10px; text-align:center; color:#6b6b6b;">
+      皆さまにお会いできますことを、心より楽しみにしております。
+    </p>
+  </div>
+</body>
+</html>
